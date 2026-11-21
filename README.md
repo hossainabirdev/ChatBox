@@ -6,6 +6,21 @@ A real-time messaging PWA that brings together the best of WhatsApp, Messenger, 
 
 **Live demo:** https://chatbox01.pages.dev
 
+## What's new in v174
+
+v174 is a one-fix + one-polish release on top of v173 — same app, same backend,
+no behaviour changes:
+
+- **Login-logo wave, restored** — the login page logo's ripple ring ("wave")
+  played once and stopped in v173; it waves forever again now, exactly like
+  the old v172 app. Cause: a v173 polish rule accidentally overrode the
+  infinite ripple with a single play. Fix: the override is deleted.
+- **Emoji panel entry** — the emoji panel used to appear instantly; it now
+  rises in with a gentle 180 ms fade, matching every other overlay
+  (menus, sheets, toasts).
+- No new SQL, no call or bot code touched. Full detail, with the reasoning
+  for every change, is in `README-v174.txt`.
+
 ## What's new in v173
 
 v173 is a polish-only release — no new features, no behaviour changes, just a
@@ -27,7 +42,8 @@ smoother, more premium feel:
   failed with "Failed to fetch". Fixed: the rule now names the new host
   (`dpohgpccqkbzazbbikwx`). App code unchanged — still v173.
 
-Full detail, with the reasoning for every change, is in `README-v173.txt`.
+Full detail for v173 was in the v173 pack's `README-v173.txt`; v174 detail
+is in `README-v174.txt`.
 No new SQL was needed for v173, and no call or bot code was touched.
 
 ## Why ChatBox?
@@ -120,7 +136,7 @@ Backend (one-time, in your own Supabase project):
 1. Create a Supabase project; note the project URL and anon key.
    The live app runs on project "ChatBox" (ref `dpohgpccqkbzazbbikwx`,
    Singapore region).
-2. **v173 needs no new SQL.** If you are setting the backend up from scratch,
+2. **v174 needs no new SQL.** If you are setting the backend up from scratch,
    run the **§0 check-first queries** in `supabase-v172.sql` and record the
    answers — then run one section at a time. Live status (20 Nov 2026,
    project "chatbox"): §0 done; §1-1a, §1-3a (adapted), §2 C-12 and §3 S-1
@@ -135,17 +151,17 @@ Backend (one-time, in your own Supabase project):
 
 ```
 .
-├── index.html            # the whole app (v173)
+├── index.html            # the whole app (v174)
 ├── sw.js                 # service worker — offline shell + push
 ├── manifest.json         # PWA manifest
 ├── logo.png  icon-*.png  # app icons
 ├── favicon.svg
 ├── chatbox-call-doodle-bg.jpg
 ├── _headers              # Cloudflare Pages headers
-├── supabase-v172.sql     # backend migration (partially run live 20 Nov 2026 — A/B/C/F done, D/E need rework; v173 needs no new SQL)
+├── supabase-v172.sql     # backend migration (partially run live 20 Nov 2026 — A/B/C/F done, D/E need rework; v174 needs no new SQL)
 ├── assets/banner.gif     # README banner
 ├── README.md
-├── README-v173.txt       # full v173 change log (WHY + WHAT CHANGED per item)
+├── README-v174.txt       # full v174 change log (WHY + WHAT CHANGED per item)
 ├── DEPLOY_GUIDE.md       # Cloudflare deploy + GitHub push steps
 ├── GITHUB_UPDATE.md      # About fields to paste on GitHub (description / website / topics)
 ├── .env.example          # secret names only — never real values

@@ -18743,8 +18743,7 @@ body #auth .card{animation:v173CardIn .25s var(--v173-ease) .18s both}
 /* P4.4 auth tab swap fade (optional item, done) */
 #auth .card.v173-auth-swap{animation:v173AuthSwap .15s var(--v173-ease)}
 @keyframes v173AuthSwap{from{opacity:.35}to{opacity:1}}
-/* C5 auth logo pulse: infinite -> single play (splash instance untouched) */
-body #auth .logo::after{animation:v105LogoPulse 2.6s ease-out 1}
+/* v174 FIX: v173 single-play override DELETED — base rule (line 2126) governs again, ripple infinite like v172 */
 /* P2.1 refresh-button completion pop */
 #v49InboxRefresh.v173-done{animation:v173BtnDone .25s var(--v173-ease)}
 @keyframes v173BtnDone{0%{transform:scale(.92)}60%{transform:scale(1.06)}100%{transform:scale(1)}}
@@ -18795,6 +18794,18 @@ body .v105-tab-pill{transition:transform .22s var(--v173-ease),width .22s var(--
 /* C2 send morph: rotation cut, scale-only pulse .18s */
 body .send-btn.v105-sent{animation:v173SendPulse .18s var(--v173-ease)}
 @keyframes v173SendPulse{0%{transform:scale(1)}60%{transform:scale(1.06)}100%{transform:scale(1)}}
+</style>
+<style id="v174-polish">
+/* v174 polish-only: one new entry rule. No layout, colour, behaviour or
+   network changes. Transform/opacity only. Reuses the v173 motion scale
+   (--v173-dur-med 180ms, --v173-ease). The v173 auth-logo single-play
+   override was deleted by the v174 logo fix — the base rule (line 2126)
+   governs again, ripple infinite exactly like v172; splash logo untouched. */
+/* U1 emoji panel entry: the panel appeared instantly on every open, while
+   every other overlay (menus, sheets, toasts, install bar) already has an
+   entry. User-triggered toggle only (toggleEmoji) — no re-render replay. */
+#emojiPanel.show{animation:v174EmojiIn .18s var(--v173-ease) both}
+@keyframes v174EmojiIn{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
 </style>
 <!-- v84: compact install prompt — small/medium banner, English, professional.
      Shown only in a mobile/desktop browser (never when already installed as
@@ -39100,7 +39111,7 @@ if(typeof openGroupChat==='function'){
 }
 </script>
 
-<script>/* ChatBox v82 */window.__CHATBOX_VERSION__ = 'v173'; window.__CHATBOX_RELEASE_DATE__ = '21 November 2026, 01:23';</script>
+<script>/* ChatBox v82 */window.__CHATBOX_VERSION__ = 'v174'; window.__CHATBOX_RELEASE_DATE__ = '21 November 2026, 09:51';</script>
 <script>
 /* ================= ChatBox v162 — Community system (Phase 1) =================
    New code lives ONLY in this block. Old code is not moved or rewritten
