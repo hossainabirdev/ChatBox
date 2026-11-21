@@ -4,7 +4,31 @@
 
 A real-time messaging PWA that brings together the best of WhatsApp, Messenger, Instagram and Snapchat — and adds what none of them have: 13 games inside your chats, Watch Together, and group games you can spectate live.
 
-**Live demo:** https://chatbox-41j.pages.dev
+**Live demo:** https://chatbox01.pages.dev
+
+## What's new in v173
+
+v173 is a polish-only release — no new features, no behaviour changes, just a
+smoother, more premium feel:
+
+- **Animated load** — the splash screen fades and settles into the login screen
+  instead of swapping abruptly, with a gentle logo scale-in.
+- **Refresh that answers back** — the inbox refresh button pops when a refresh
+  finishes, and the chat list crossfades in on first paint.
+- **Realtime status, softly** — online dots scale in when a contact comes online,
+  the typing bubble fades out instead of vanishing, and message ticks pop gently.
+- **One motion language** — every transition in the app now shares a single
+  120/180/250 ms ease-out scale, so modals, tabs, toasts and rows all feel like
+  the same app. Nothing bouncy, nothing exaggerated.
+- **6 small bug fixes** — including the bulk-open animation storm (all ~50 bubbles
+  popping when a chat opened) and the send double-pop (one message animating twice).
+- **CSP login fix (21 Nov)** — the `_headers` security rule still named the old
+  Supabase host, so browsers blocked every request to the new backend and login
+  failed with "Failed to fetch". Fixed: the rule now names the new host
+  (`dpohgpccqkbzazbbikwx`). App code unchanged — still v173.
+
+Full detail, with the reasoning for every change, is in `README-v173.txt`.
+No new SQL was needed for v173, and no call or bot code was touched.
 
 ## Why ChatBox?
 
@@ -94,12 +118,15 @@ npx serve .
 Backend (one-time, in your own Supabase project):
 
 1. Create a Supabase project; note the project URL and anon key.
-2. In the SQL Editor, run the **§0 check-first queries** in `supabase-v172.sql`
-   and record the answers — then run one section at a time. Live status
-   (20 Nov 2026, project "chatbox"): §0 done; §1-1a, §1-3a (adapted),
-   §2 C-12 and §3 S-1 already run and verified. §3 E-06 and §3 F11 are
-   STOPPED and need a rework — do not run them as written. §1-1b, §1-3c,
-   the `view_once_views` table and the `muted_chats` table must NOT be run.
+   The live app runs on project "ChatBox" (ref `dpohgpccqkbzazbbikwx`,
+   Singapore region).
+2. **v173 needs no new SQL.** If you are setting the backend up from scratch,
+   run the **§0 check-first queries** in `supabase-v172.sql` and record the
+   answers — then run one section at a time. Live status (20 Nov 2026,
+   project "chatbox"): §0 done; §1-1a, §1-3a (adapted), §2 C-12 and §3 S-1
+   already run and verified. §3 E-06 and §3 F11 are STOPPED and need a
+   rework — do not run them as written. §1-1b, §1-3c, the `view_once_views`
+   table and the `muted_chats` table must NOT be run.
 3. Set the server secrets listed in `.env.example` — in the dashboards, not
    in the repo (see `DEPLOY_GUIDE.md`).
 4. In `index.html`, replace the Supabase project URL / anon key with yours.
@@ -108,17 +135,19 @@ Backend (one-time, in your own Supabase project):
 
 ```
 .
-├── index.html            # the whole app (v172)
+├── index.html            # the whole app (v173)
 ├── sw.js                 # service worker — offline shell + push
 ├── manifest.json         # PWA manifest
 ├── logo.png  icon-*.png  # app icons
 ├── favicon.svg
 ├── chatbox-call-doodle-bg.jpg
 ├── _headers              # Cloudflare Pages headers
-├── supabase-v172.sql     # backend migration (partially run live 20 Nov 2026 — A/B/C/F done, D/E need rework)
+├── supabase-v172.sql     # backend migration (partially run live 20 Nov 2026 — A/B/C/F done, D/E need rework; v173 needs no new SQL)
 ├── assets/banner.gif     # README banner
 ├── README.md
+├── README-v173.txt       # full v173 change log (WHY + WHAT CHANGED per item)
 ├── DEPLOY_GUIDE.md       # Cloudflare deploy + GitHub push steps
+├── GITHUB_UPDATE.md      # About fields to paste on GitHub (description / website / topics)
 ├── .env.example          # secret names only — never real values
 └── LICENSE               # MIT
 ```

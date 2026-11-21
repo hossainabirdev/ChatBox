@@ -1755,7 +1755,7 @@ body.dark #emojiPanel{background:rgba(32,44,51,.85)!important}
 .quick-replies{position:absolute!important;left:12px!important;right:12px!important;bottom:86px!important;z-index:6!important;background:rgba(255,255,255,.82)!important;backdrop-filter:blur(10px);border-radius:16px!important;box-shadow:0 8px 24px rgba(0,0,0,.15)!important;border:1px solid rgba(0,0,0,.08)!important;padding:8px 10px!important;flex-wrap:wrap!important}
 body.dark .quick-replies{background:rgba(32,44,51,.85)!important}
 </style>
-<!-- v137 p2 (M2): the Supabase CDN script was moved to just after the splash in <body> so first paint is never blocked waiting for jsdelivr. --><link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin><link rel="preconnect" href="https://qqagwtgcnzqdcoxdhjsi.supabase.co" crossorigin>
+<!-- v137 p2 (M2): the Supabase CDN script was moved to just after the splash in <body> so first paint is never blocked waiting for jsdelivr. --><link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin><link rel="preconnect" href="https://dpohgpccqkbzazbbikwx.supabase.co" crossorigin>
 <style>
 /* v26 organised sidebar: side-head is now just New Chat + Settings, right-aligned */
 .side-head{justify-content:flex-end}
@@ -2150,7 +2150,7 @@ body.dark .msg.mine{background:linear-gradient(135deg,var(--bubble-mine),var(--b
 @keyframes v105ReactFly{0%{opacity:0;transform:translateY(0) scale(.6) rotate(0deg)}25%{opacity:1;transform:translateY(-14px) scale(1.15) rotate(-6deg)}100%{opacity:0;transform:translateY(-56px) translateX(8px) scale(1) rotate(8deg)}}
 /* --- Chat: a newly added reaction chip pops --- */
 .react-chip.v105-chip-pop{animation:v105ChipPop .3s cubic-bezier(.22,1,.36,1)}
-@keyframes v105ChipPop{0%{transform:scale(.5)}60%{transform:scale(1.2)}100%{transform:scale(1)}}
+@keyframes v105ChipPop{0%{transform:scale(.85)}60%{transform:scale(1.08)}100%{transform:scale(1)}} /* v173 (P4.6): overshoot 1.2 -> 1.08 */
 /* --- Chat: voice waveform bars (animate only while playing) --- */
 .v105-wave{display:none;align-items:center;gap:2px;height:22px}
 .v105-wave i{width:3px;border-radius:2px;background:var(--accent);display:block;transform:scaleY(.5)}
@@ -2961,8 +2961,8 @@ body.dark .story-section-title{color:#25d366}
 // Copy from Supabase Dashboard > Project Settings > API.
 // No real key is given here — set your own project's key.
 // Exposing the anon key in the frontend is safe, because RLS is on (see schema.sql).
-const SUPABASE_URL = 'https://qqagwtgcnzqdcoxdhjsi.supabase.co';
-const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InFxYWd3dGdjbnpxZGNveGRoanNpIiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTM3MjI2NzksImV4cCI6MjEwOTI5ODY3OX0.5nYStQx2imX_fMDxfoYpK-iiH3_T4qriQDKejHev5Og';
+const SUPABASE_URL = 'https://dpohgpccqkbzazbbikwx.supabase.co';
+const SUPABASE_ANON_KEY = 'sb_publishable_eRq4zhHRZbru1Gn3kbZiiw_SMumFF6v';
 
 const $ = (id) => document.getElementById(id);
 const EMOJIS = '😀😁😂🤣😊😍😘😎🤔😢😡👍👏🙏❤️🩷💕💖💗💓💞💝💘💔🔥🎉🎂⚽🏏🌹🍕☕🚗✈️📱💻🎵⭐💯✅❌👋🤝🙌😴🤯🥳😇😜🤪😅🙂😉😋😛😐😑😶🙄😬😌😔😷🤒🤕🤢🤮🤧🥵🥶😱😨😰😥😓🤗🤫🤭🫡🫠'.split(/(\p{Extended_Pictographic})/u).filter(Boolean);
@@ -3868,7 +3868,7 @@ function showErr(el,msg){const e=$(el); e.textContent=msg; e.classList.remove('h
 function hideErr(el){$(el).classList.add('hidden')}
 function sbErr(e){ const m = (e && e.message) ? e.message : 'An error occurred.'; if(/Invalid login credentials/i.test(m)) return 'Username or password is wrong.'; if(/User already registered/i.test(m)) return 'This username is already taken. Try another username.'; if(/Email link is invalid/i.test(m)) return 'Login session expired. Please log in again.'; if(/rate limit|too many requests|request this after/i.test(m)) return 'Too many attempts. Please wait a minute and try again.'; if(/Password should be at least/i.test(m)) return 'Password must be at least 8 characters.'; if(/Password should be at most/i.test(m)) return 'Password must be 72 characters or fewer.'; if(/supabase|realtime|\bRLS\b|postgres|database|migration|Edge Function|SUPABASE_|call_sessions|schema cache|relation .* does not exist|row-level security|permission denied|duplicate key|unique constraint|does not exist|\bJWT\b|expired/i.test(m)) return 'Something went wrong. Please try again later.'; return m; }
 
-function setTab(m){mode=m;$('tabLogin').classList.toggle('active',m==='login');$('tabSignup').classList.toggle('active',m==='signup');$('nameField').style.display=m==='signup'?'block':'none';$('emailField').style.display=m==='signup'?'block':'none';var _ul=$('usernameLabel');if(_ul)_ul.textContent=m==='signup'?'Username':'Username or email';$('username').placeholder=m==='signup'?'Choose a username':'Username or email';var _un=$('username');if(_un)_un.maxLength=m==='signup'?20:254;var _fb=$('forgotBtn');if(_fb)_fb.style.display=m==='signup'?'none':'';$('authBtn').textContent=m==='signup'?'Create account':'Log in';$('password').placeholder=m==='signup'?'At least 8 characters':'Enter your password';$('password').autocomplete=m==='signup'?'new-password':'current-password';$('password').type='password';var _e=$('pwEye');if(_e)_e.textContent='Show';var _c=$('capsHint');if(_c)_c.classList.add('hidden');var _pm=$('signupPwMeter');if(_pm){ if(m==='signup'){ v94PwMeterUpdate($('password'), _pm); } else { _pm.classList.add('hidden'); } }hideErr('authErr');hideErr('authOk')}
+function setTab(m){mode=m;$('tabLogin').classList.toggle('active',m==='login');$('tabSignup').classList.toggle('active',m==='signup');$('nameField').style.display=m==='signup'?'block':'none';$('emailField').style.display=m==='signup'?'block':'none';var _ul=$('usernameLabel');if(_ul)_ul.textContent=m==='signup'?'Username':'Username or email';$('username').placeholder=m==='signup'?'Choose a username':'Username or email';var _un=$('username');if(_un)_un.maxLength=m==='signup'?20:254;var _fb=$('forgotBtn');if(_fb)_fb.style.display=m==='signup'?'none':'';$('authBtn').textContent=m==='signup'?'Create account':'Log in';$('password').placeholder=m==='signup'?'At least 8 characters':'Enter your password';$('password').autocomplete=m==='signup'?'new-password':'current-password';$('password').type='password';var _e=$('pwEye');if(_e)_e.textContent='Show';var _c=$('capsHint');if(_c)_c.classList.add('hidden');var _pm=$('signupPwMeter');if(_pm){ if(m==='signup'){ v94PwMeterUpdate($('password'), _pm); } else { _pm.classList.add('hidden'); } }hideErr('authErr');hideErr('authOk');try{var _ac173=document.querySelector('#auth .card');if(_ac173){_ac173.classList.add('v173-auth-swap');setTimeout(function(){_ac173.classList.remove('v173-auth-swap');},160);}}catch(e){}}
 function validUsername(u){ return /^[a-z0-9_]{3,20}$/.test(u); }
 function authEmail(username){ return username.toLowerCase() + '@chatbox.app'; }
 async function loadMe(user){
@@ -4519,7 +4519,7 @@ function v167PlayGroupTone(groupId, msgId){
   }catch(e){}
   playNotify('group-'+groupId);
 }
-const VAPID_PUBLIC_KEY = 'BNGBmotIage3LdKp1obThGyU4um5TeRohb6DIQ5yan3NSEQq9Fq00F_0zUG8Xhy-xVctQkCNRz4UbMG3a0uXiA0';
+const VAPID_PUBLIC_KEY = 'BJOrSJHkaFJJQpaLVcoa0RGnz41XAhNl8txS3yjgPkTulLzLDHxp5RAiQbRKdP7vLKGqKTxMk8IH-OXuz6RnYJo';
 let pushReg = null;
 function urlBase64ToUint8Array(base64String){ const padding='='.repeat((4-base64String.length%4)%4); const base64=(base64String+padding).replace(/-/g,'+').replace(/_/g,'/'); const rawData=window.atob(base64); const outputArray=new Uint8Array(rawData.length); for(let i=0;i<rawData.length;++i){ outputArray[i]=rawData.charCodeAt(i); } return outputArray; }
 async function registerPushSW(){ if(!('serviceWorker' in navigator)) return; try{ pushReg = await navigator.serviceWorker.register('/sw.js'); }catch(e){ v140Log('registerPushSW', e); } }
@@ -5876,12 +5876,12 @@ async function subscribeChat(chatId){
       if(p.user_id===me.id) return;
       /* v152: only write the bubble when the line is empty — rewriting it
          on every ~2s broadcast restarted the dots' bounce phase mid-typing. */
-      if(p.typing){ if(!$('typingLine').innerHTML) $('typingLine').innerHTML = '<span class="typing-bubble"><i></i><i></i><i></i></span>'; }
-      else $('typingLine').innerHTML = '';
+      if(p.typing){ try{ clearTimeout(window._v173TypingFadeT); var _tl173=$('typingLine'); if(_tl173) _tl173.classList.remove('v173-typing-out'); }catch(e){} if(!$('typingLine').innerHTML) $('typingLine').innerHTML = '<span class="typing-bubble"><i></i><i></i><i></i></span>'; }
+      else v173TypingFadeOut();
       clearTimeout(typingHideTimer);
       /* v137 (phase-2 latency): paired typing change — hide 3.5s->2.5s, stays
          above the 2s throttle so the indicator never flickers. */
-      if(p.typing) typingHideTimer = setTimeout(()=>{ $('typingLine').innerHTML=''; }, 2500);
+      if(p.typing) typingHideTimer = setTimeout(()=>{ v173TypingFadeOut(); }, 2500);
       /* v137 (phase-2 latency): the peer just typed, so they are online now —
          re-read their status at once instead of waiting for the 15s poll. */
       try{ refreshPartnerStatus(); }catch(e){}
@@ -5941,6 +5941,7 @@ async function subscribeList(){
     })
     .subscribe((status)=>{ startFallback(); });
 }
+function v173TypingFadeOut(){ var _tl=$('typingLine'); if(!_tl || !_tl.innerHTML) return; try{ clearTimeout(window._v173TypingFadeT); }catch(e){} _tl.classList.add('v173-typing-out'); window._v173TypingFadeT=setTimeout(function(){ var _t2=$('typingLine'); if(_t2){ _t2.innerHTML=''; _t2.classList.remove('v173-typing-out'); } }, 150); }
 async function refreshTypingFallback(){
   if(!openChat) return;
   try{
@@ -5948,7 +5949,7 @@ async function refreshTypingFallback(){
     const {data} = await sb().from('typing').select('user_id').eq('chat_id', openChat.id).neq('user_id', me.id).gt('updated_at', since);
     /* v152: same as the broadcast handler — do not rewrite a live bubble. */
     if(data && data.length){ if(!$('typingLine').innerHTML) $('typingLine').innerHTML = '<span class="typing-bubble"><i></i><i></i><i></i></span>'; }
-    else $('typingLine').innerHTML = '';
+    else v173TypingFadeOut();
   }catch(e){}
 }
 
@@ -5971,11 +5972,11 @@ function refreshChatsSoon(){
      and defers anything outside the loaded window to the next explicit refresh. */
   try{ if(_refreshChatsT) clearTimeout(_refreshChatsT); _refreshChatsT = setTimeout(function(){ try{ inboxLightCheck(); }catch(e){} }, 300); }catch(e){ try{ inboxLightCheck(); }catch(_){} }
 }
+var _v173TabSwapPending = false;
 function setInboxView(view){
   inboxView = ['all','unread','pinned','archived','groups'].includes(view) ? view : 'all';
   ['all','unread','pinned','archived','groups'].forEach(v=>{ const b=$('filter'+v[0].toUpperCase()+v.slice(1)); if(b) b.classList.toggle('active', inboxView===v); });
-  var _cl=$('chatList');
-  if(_cl){ _cl.classList.remove('v102-tab-swap'); void _cl.offsetWidth; _cl.classList.add('v102-tab-swap'); }
+  _v173TabSwapPending = true;
   /* v136: leaving the archived view applies any auto-unarchive that was
      deferred while it was open (no row is yanked out mid-view). */
   try{ if(inboxView!=='archived') inboxFlushPendingAutoUnarchive(); }catch(e){}
@@ -6133,8 +6134,10 @@ function renderChats(){
   } else if(inboxPagesLoaded>1){
     html += '<div class="empty" style="padding:8px 0">No more chats</div>';
   }
+  var _v173FirstIn = el.getAttribute('data-v136-rendered')!=='1';
   el.innerHTML = html;
   el.setAttribute('data-v136-rendered','1');
+  if(_v173FirstIn){ el.classList.add('v173-first-in'); setTimeout(function(){ el.classList.remove('v173-first-in'); }, 260); }
   inboxLastRenderSig = sig;
   inboxRenderedCount = inboxShownIds.length;
   if(_scEl) _scEl.scrollTop=_scTop;
@@ -6730,6 +6733,7 @@ async function inboxRebuildWindow(opts){
   if(myGen!==inboxGen) return;
   inboxHasNewer = false;
   renderChats();
+  if(_v173TabSwapPending){ _v173TabSwapPending = false; var _cl=$('chatList'); if(_cl){ _cl.classList.remove('v102-tab-swap'); void _cl.offsetWidth; _cl.classList.add('v102-tab-swap'); } }
 }
 async function inboxRefreshVisibleProfiles(){
   /* One batched profiles query keeps names / avatars / online dots fresh for
@@ -6793,8 +6797,10 @@ function inboxAppendShown(){
     else { const g=inboxGroupLoaded[e.id]; if(g) html+=inboxGroupRowHtml(g); }
   });
   if(!html){ inboxSetLoadMoreState(); return; }
+  var _v173PreCount = inboxRenderedCount;
   if(wrap) wrap.insertAdjacentHTML('beforebegin', html);
   else el.insertAdjacentHTML('beforeend', html);
+  try{ var _v173Rows = el.querySelectorAll('.chat-item'); for(var _v173i=_v173PreCount; _v173i<_v173Rows.length; _v173i++){ _v173Rows[_v173i].classList.add('v173-row-in'); } setTimeout(function(){ var _rs=el.querySelectorAll('.v173-row-in'); for(var _v173j=0; _v173j<_rs.length; _v173j++){ _rs[_v173j].classList.remove('v173-row-in'); } }, 200); }catch(e){}
   inboxRenderedCount = inboxShownIds.length;
   try{ inboxLastRenderSig = inboxComputeSig(inboxCollectShown()); }catch(e){}
   inboxSetLoadMoreState();
@@ -7614,8 +7620,10 @@ async function openChatById(id){
   updateChatHeader(); renderChats(); const ab2=$('attachBtn'); if(ab2) ab2.style.display='';
   _msgSoundArmed=false;
   await purgeExpiredDisappearing(id);
+  $('messages').classList.add('v152-no-anim');
   var _seed168 = 0; try{ _seed168 = v168SeedOpenChatFromCache(); }catch(e){} /* v168 (s14 F-01 / s13 P2-1): seeded first paint from the last load */
   var _ok155 = await refreshMessages(true);
+  $('messages').classList.remove('v152-no-anim');
   /* v155 (PWA G4): a hung/failed load used to leave a blank pane with no
      way forward. Show a retry affordance instead. */
   if(_ok155 === false){ try{ var _bx155 = $('messages'); if(_bx155 && !_bx155.children.length){ _bx155.innerHTML = '<div class="v155-retry" style="padding:32px 16px;text-align:center;color:#667781"><p>Couldn\'t load messages — check your connection.</p><button type="button" class="primary" onclick="v155RetryMessages()">Try again</button></div>'; } }catch(e){} }
@@ -8267,7 +8275,6 @@ async function toggleReaction(msgId, emoji){
     if(existing && existing.emoji===emoji){ await sb().from('message_reactions').delete().eq('message_id', msgId).eq('user_id', me.id); }
     else { try{ v115SetQuickHeart(emoji); }catch(e){} await sb().from('message_reactions').upsert({ message_id:msgId, user_id:me.id, emoji, updated_at:new Date().toISOString() }, { onConflict:'message_id,user_id' }); }
     await updateMessageReactions(msgId);
-    try{ v105ReactFly(msgId, emoji); }catch(e){}
   }catch(e){
     /* Revert the optimistic chip to the server's true state. */
     try{ await updateMessageReactions(msgId); }catch(_){}
@@ -8800,9 +8807,10 @@ async function sendMessage(){
     // v117: streak — a sent message counts toward today's streak.
     try{ v117TouchStreak(chatId); }catch(e){}
     sendPushForMessage(chatId, pushRecipientId(openChat), me.display_name || me.username || 'New message', text.slice(0,240));
+    $('messages').classList.add('v152-no-anim');
     try{ const tn=msgEl(tempId); if(tn) tn.remove(); }catch(e){}
     if(openChat && openChat.id===chatId){ try{localStorage.removeItem(chatDraftKey(chatId));}catch(e){} cancelReply(); await sendTyping(false); }
-    await afterSend(chatId);
+    try{ await afterSend(chatId); }finally{ $('messages').classList.remove('v152-no-anim'); }
   }catch(e){
     console.warn('ChatBox 1-to-1 send failed', e);
     /* v155 (core P1): mirror the group path — only a NETWORK-like failure
@@ -11334,8 +11342,9 @@ async function sendGroupMessage(text){
     /* v82: notify every other member (WhatsApp-style group push). */
     try{ const g = groupChats.find(x=>x.id===groupId); sendGroupPush(groupId, g ? g.name : 'Group', text); }catch(e){}
     /* v134: group streak is not used — no group touch. */
+    $('messages').classList.add('v152-no-anim');
     try{ const tn=msgEl('g-'+tempId); if(tn) tn.remove(); }catch(e){}
-    await afterSend();
+    try{ await afterSend(); }finally{ $('messages').classList.remove('v152-no-anim'); }
   }catch(e){ console.warn('ChatBox group send failed', e); if(_v137IsNetworkLike(e)){ try{ const tn=msgEl('g-'+tempId); if(tn){ tn.classList.add('v130-queued'); tn.insertAdjacentHTML('beforeend','<span class="v130-queued-tag">Queued — will send when online</span>'); } }catch(e2){} queueOfflineMessage(text, null, replyId, groupId, tempId); showToast('📶 No network — message queued, it will go when the network returns'); } else { try{ const tn=msgEl('g-'+tempId); if(tn) tn.remove(); }catch(e2){} if(openChat && openChat.group_id===groupId){ try{ $('msgInput').value=text; saveCurrentDraft(); }catch(e3){} } showToast(sbErr(e)); } }
 }
 async function unsubscribeGroup(){ try{ if(groupChannel) await sb().removeChannel(groupChannel); }catch(e){} groupChannel=null; try{ if(typingChannel) await sb().removeChannel(typingChannel); }catch(e){} typingChannel=null; }
@@ -13121,7 +13130,7 @@ function toggleCallMoreMenu(forceClose){
 async function shareCallInfo(){
   const name = (document.getElementById('callName') && document.getElementById('callName').textContent) || 'ChatBox';
   const text = 'Voice call with ' + name + ' on ChatBox';
-  const url = 'https://chatbox-41j.pages.dev/';
+  const url = 'https://chatbox01.pages.dev/';
   try{
     if(navigator.share){ await navigator.share({title:'ChatBox voice call', text:text, url:url}); showToast('Shared'); return; }
   }catch(e){}
@@ -14266,7 +14275,6 @@ sendVoiceBlob=async function(blob,mime){
 #auth .logo{animation:pop .35s cubic-bezier(.22,1,.36,1) both}
 #auth h1{animation:msgIn .3s ease .08s both}
 #auth p.tagline{animation:msgIn .3s ease .16s both}
-#auth .auth-card{animation:msgIn .35s ease .24s both}
 /* v102: call screen entrance — avatar pops, panel rises */
 #callModal .v95-avatar-wrap{animation:v102CallAvatarIn .45s cubic-bezier(.22,1,.36,1) .12s both}
 #callModal .call-panel{animation:v102CallPanelIn .35s cubic-bezier(.22,1,.36,1) .12s both}
@@ -17626,7 +17634,7 @@ async function v44ManualRefresh(){
     showToast('Inbox refreshed');
   }finally{
     window._v59ManualRefreshing = false;
-    if(_rb){ _rb.style.pointerEvents=''; _rb.style.opacity=''; _rb.classList.remove('v102-spinning'); }
+    if(_rb){ _rb.style.pointerEvents=''; _rb.style.opacity=''; _rb.classList.remove('v102-spinning'); _rb.classList.add('v173-done'); setTimeout(function(){ _rb.classList.remove('v173-done'); }, 260); }
   }
 }
 document.addEventListener('visibilitychange', function(){ if(!document.hidden) v44ForegroundRefresh(); });
@@ -18351,7 +18359,7 @@ setTimeout(function(){ try{ v44DataChannelEnsure(); }catch(e){} }, 3000);
 </script>
 <style>
 /* ChatBox v44-final: last-loaded rules. */
-#v44InboxRefresh{width:36px;height:36px;flex:none;border-radius:50%;font-size:18px;line-height:1;padding:0}
+#v44InboxRefresh{width:36px;height:36px;flex:none;border-radius:50%;font-size:18px;line-height:1;padding:0} /* v173 (B4): dead rule — live button is #v49InboxRefresh, see v173 rule */
 #forgotModal .sheet{max-width:420px}
 #v44AccountRows .set-section{margin-top:16px}
 #v44BlockedList .set-section{margin-top:16px}
@@ -18709,6 +18717,85 @@ kbd{display:none}
   .v49-polish #svProgress span i{transition:none!important}
 }
 </style>
+<style id="v173-polish">
+/* v173 polish-only: one shared motion scale + micro-interactions. No layout,
+   colour, behaviour or network changes. Transform/opacity only (except the
+   single-row unread flash, P2.3, which is background-only by design). */
+:root{
+  --v173-dur-fast:120ms; --v173-dur-med:180ms; --v173-dur-slow:250ms;
+  --v173-ease:cubic-bezier(.2,0,0,1);
+  --v173-ease-soft:cubic-bezier(.22,1,.36,1);
+}
+/* P1.1 splash exit: whisper of scale on the existing fade */
+body #splash{transition:opacity .3s var(--v173-ease),transform .3s var(--v173-ease)}
+body #splash.v106-out{opacity:0;transform:scale(.985);pointer-events:none}
+/* P1.2 app fade .4s -> .25s */
+body #app{animation:v173AppIn .25s var(--v173-ease) both}
+@keyframes v173AppIn{from{opacity:0}to{opacity:1}}
+/* P1.3 splash logo gentle scale-in */
+#splash .splash-logo{animation:v173LogoIn .25s var(--v173-ease) both}
+@keyframes v173LogoIn{from{opacity:0;transform:scale(.94)}to{opacity:1;transform:scale(1)}}
+/* C10 splash tagline stagger 35ms -> 25ms steps */
+body #splash p.tagline span{animation-delay:calc(var(--i)*25ms + .3s)}
+/* P1.4 login card: delay .35s -> .18s, duration .4s -> .25s */
+body #auth .card{animation:v173CardIn .25s var(--v173-ease) .18s both}
+@keyframes v173CardIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+/* P4.4 auth tab swap fade (optional item, done) */
+#auth .card.v173-auth-swap{animation:v173AuthSwap .15s var(--v173-ease)}
+@keyframes v173AuthSwap{from{opacity:.35}to{opacity:1}}
+/* C5 auth logo pulse: infinite -> single play (splash instance untouched) */
+body #auth .logo::after{animation:v105LogoPulse 2.6s ease-out 1}
+/* P2.1 refresh-button completion pop */
+#v49InboxRefresh.v173-done{animation:v173BtnDone .25s var(--v173-ease)}
+@keyframes v173BtnDone{0%{transform:scale(.92)}60%{transform:scale(1.06)}100%{transform:scale(1)}}
+/* B4 live refresh button sizing (dead #v44InboxRefresh rule left in place, commented there) */
+#v49InboxRefresh{width:36px;height:36px;flex:none}
+/* P2.2 skeleton -> list crossfade, first paint only */
+#chatList.v173-first-in{animation:v173ListIn .25s var(--v173-ease) both}
+@keyframes v173ListIn{from{opacity:0}to{opacity:1}}
+/* P2.3 patched-row unread flash 1.4s -> .8s */
+body .chat-item.v105-newmsg{animation:v173NewMsg .8s ease both}
+@keyframes v173NewMsg{0%{background:rgba(37,211,102,.12)}100%{background:transparent}}
+/* P2.4 Load-more appended rows only */
+#chatList .chat-item.v173-row-in{animation:v173RowIn .18s var(--v173-ease) both}
+@keyframes v173RowIn{from{opacity:0;transform:translateY(4px)}to{opacity:1;transform:none}}
+/* P2.5 update reload fade (guard re-checked in JS before the class is added) */
+body.v173-reloading #app{opacity:0;transition:opacity .18s var(--v173-ease)}
+body.v173-reloading #v108UpdateBar{opacity:0;transition:opacity .18s var(--v173-ease)}
+/* P2.6 update bar entrance .38s -> .25s */
+body #v108UpdateBar{animation:v173BarIn .25s var(--v173-ease) both}
+@keyframes v173BarIn{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:none}}
+/* P3.1 presence dot scale-in (fresh element on every flip) */
+.avatar .dot{animation:v173DotIn .18s var(--v173-ease) both}
+.story-online{animation:v173DotIn .18s var(--v173-ease) both}
+@keyframes v173DotIn{from{opacity:0;transform:scale(.4)}to{opacity:1;transform:scale(1)}}
+/* P3.2 / C7 dot ping: list rows lose the infinite ping, header keeps it */
+.avatar .dot::after{animation:none}
+#chatAvatar .dot::after{animation:v102Ping 2s ease-out infinite}
+/* C6 story glow: infinite glow cut, static green ring stays */
+.story-ring.unseen{animation:none}
+/* P3.3 typing bubble fade-out (JS adds .v173-typing-out, clears after 150ms) */
+#typingLine.v173-typing-out .typing-bubble{opacity:0;transition:opacity .15s var(--v173-ease)}
+/* P3.4 tick seen pop 1.35x/.25s -> 1.12x/.18s */
+.msg .foot .ticks.seen{animation:v173TickPop .18s var(--v173-ease)}
+@keyframes v173TickPop{0%{transform:scale(1.12)}100%{transform:scale(1)}}
+/* P3.5 / B6 one canonical message entry */
+.v49-polish #messages .msg{animation:v173MsgIn .18s var(--v173-ease) both}
+#messages .msg:last-child{animation:v173MsgIn .18s var(--v173-ease) both}
+@keyframes v173MsgIn{from{opacity:0;transform:translateY(4px)}to{opacity:1;transform:none}}
+/* P4.1 modal sheet canonical .22s entry (exit .15s untouched) */
+.v49-polish .modal .sheet{animation:v173SheetIn .22s var(--v173-ease) both}
+@keyframes v173SheetIn{from{opacity:0;transform:translateY(14px) scale(.985)}to{opacity:1;transform:none}}
+/* P4.2 tab pill .3s -> .22s */
+body .v105-tab-pill{transition:transform .22s var(--v173-ease),width .22s var(--v173-ease)}
+/* P4.6 chipPop overshoot 1.25 -> 1.08 (v105ChipPop softened by direct edit at
+   its definition, which sits after this block so a same-name override here
+   would lose to it) */
+@keyframes chipPop{0%{transform:scale(.85)}60%{transform:scale(1.08)}100%{transform:scale(1)}}
+/* C2 send morph: rotation cut, scale-only pulse .18s */
+body .send-btn.v105-sent{animation:v173SendPulse .18s var(--v173-ease)}
+@keyframes v173SendPulse{0%{transform:scale(1)}60%{transform:scale(1.06)}100%{transform:scale(1)}}
+</style>
 <!-- v84: compact install prompt — small/medium banner, English, professional.
      Shown only in a mobile/desktop browser (never when already installed as
      an app). Install triggers Chrome's native install dialog; dismiss is
@@ -18992,7 +19079,7 @@ function v110BuildAboutPanel(){
     panel.appendChild(act);
     var share = document.createElement('div');
     share.className = 'v110-share';
-    share.innerHTML = '<b>Share ChatBox</b><span>Share the ChatBox website link with others, or let them scan the QR code to open it in the app.</span><div class="v110-share-url">https://chatbox-41j.pages.dev</div><div class="v110-share-actions"><button class="v110-about-btn" onclick="v138CopyShareLink(this)">Copy</button><button class="v110-about-btn" onclick="v138ShareChatBox()">Share</button></div><div class="v110-share-qr"><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAXIAAAFyCAIAAABnRsZeAAAHKUlEQVR4nO3cQXJjKRRFwVZH7X/Lrh0w4VA85My5rS9ZPsHgBp+fn5//ADr/334A4NvIChCTFSAmK0BMVoCYrAAxWQFisgLEZAWIyQoQkxUgJitATFaAmKwAMVkBYrICxGQFiMkKEJMVICYrQExWgJisADFZAWKyAsRkBYjJChCTFSAmK0BMVoCYrAAxWQFisgLEZAWIyQoQkxUgJitATFaAmKwAMVkBYn9uvfDn87n10of8/Pwc+s07n9XOU61f97e93xed+xutOa0AMVkBYrICxGQFiMkKEJMVICYrQExWgJisALFrK9u1W+vAtZ0V5s5i9daedeZfYe3cO5r5acxcBjutADFZAWKyAsRkBYjJChCTFSAmK0BMVoCYrACxoSvbtXPLwnNLyvVvPrcNffE3v3gf7YvfyXOcVoCYrAAxWQFisgLEZAWIyQoQkxUgJitATFaA2JMr29/m3ILz3A27O7955/2+uEn9Pk4rQExWgJisADFZAWKyAsRkBYjJChCTFSAmK0DMyvYfmbkcvXXzK9/NaQWIyQoQkxUgJitATFaAmKwAMVkBYrICxGQFiD25sn3xvtKdZ965F3bt3J2ya9+37n3xO3mO0woQkxUgJitATFaAmKwAMVkBYrICxGQFiMkKEBu6sv2+Fea5peyt191Z6M782bXv+06e47QCxGQFiMkKEJMVICYrQExWgJisADFZAWKyAsQ+7uB83Yv73XOLVd/nCZxWgJisADFZAWKyAsRkBYjJChCTFSAmK0BMVoDYtZXti3edzrwndeau9Pve0dqt78bMz8ppBYjJChCTFSAmK0BMVoCYrAAxWQFisgLEZAWI/bn9ALPMvJ917da9sOded+ZfYf265/bZt5bfO5xWgJisADFZAWKyAsRkBYjJChCTFSAmK0BMVoDY0JXtzNtqb+1oX7xhd6ZzC92Zy+BbnFaAmKwAMVkBYrICxGQFiMkKEJMVICYrQExWgNi1le25tevOrvS3bVJ3nvnF5eitm253fnbmbbVrTitATFaAmKwAMVkBYrICxGQFiMkKEJMVICYrQOwzc6V36y7btZkbzZlL2Rc3uDtu3a+8duu/22kFiMkKEJMVICYrQExWgJisADFZAWKyAsRkBYhdu8v21o5252fPrSFnPtU5t9afLy5WX/z7Oq0AMVkBYrICxGQFiMkKEJMVICYrQExWgJisALFrK9sd5/aOt1aYt7aS5+79vfW633f/7swd7ZrTChCTFSAmK0BMVoCYrAAxWQFisgLEZAWIyQoQu7ayvbVoPHfT7dq5dzRzGTzz5te1Fxe6tz7nNacVICYrQExWgJisADFZAWKyAsRkBYjJChCTFSD25F22azNvYD23wpy575y5Kt4xc886c+vstALEZAWIyQoQkxUgJitATFaAmKwAMVkBYrICxIaubGcuGmc+1dq5u3tnrl1ffEcvPvOa0woQkxUgJitATFaAmKwAMVkBYrICxGQFiMkKEPvcWo5+37Jwpp2/7617cF907k7Zc/ccn+O0AsRkBYjJChCTFSAmK0BMVoCYrAAxWQFisgLErq1s175vs3huVXxrkXzudW99Gi9+kjP/f51WgJisADFZAWKyAsRkBYjJChCTFSAmK0BMVoDYk3fZ7vzmc25tJWd+kjM/jVtmbmHPcVoBYrICxGQFiMkKEJMVICYrQExWgJisADFZAWJ/br3wud3hi4vGndXpi+/3lnOf1c6699Ytuec4rQAxWQFisgLEZAWIyQoQkxUgJitATFaAmKwAsWsr25l3ju7Y2cKe22jeulN2beZttTPvG37xP8VpBYjJChCTFSAmK0BMVoCYrAAxWQFisgLEZAWIXVvZrs28n/XWnaMzd7Tftxyd+a2b+VRrTitATFaAmKwAMVkBYrICxGQFiMkKEJMVICYrQGzoynbt1tp1x84z7zzVrftob73f9eveWvfeWjPf4rQCxGQFiMkKEJMVICYrQExWgJisADFZAWKyAsSeXNm+aObdrjPvoz230H3x/c7c0a45rQAxWQFisgLEZAWIyQoQkxUgJitATFaAmKwAMSvbf2Rnozlzg3vOztp15mL13FPNfL9OK0BMVoCYrAAxWQFisgLEZAWIyQoQkxUgJitA7MmV7Yu3e774zDvOLXTP3Th77qbb79vRrjmtADFZAWKyAsRkBYjJChCTFSAmK0BMVoCYrACxoSvbW7eonnNuwbnjxdc9t1h90cwNrtMKEJMVICYrQExWgJisADFZAWKyAsRkBYjJChD7zLwLE3iX0woQkxUgJitATFaAmKwAMVkBYrICxGQFiMkKEJMVICYrQExWgJisADFZAWKyAsRkBYjJChCTFSAmK0BMVoCYrAAxWQFisgLEZAWIyQoQkxUgJitATFaAmKwAMVkBYrICxGQFiMkKEJMVICYrQExWgJisADFZAWKyAsT+Ams8NBE5RZaSAAAAAElFTkSuQmCC" alt="ChatBox QR code"><span>Scan to open ChatBox</span></div>';
+    share.innerHTML = '<b>Share ChatBox</b><span>Share the ChatBox website link with others, or let them scan the QR code to open it in the app.</span><div class="v110-share-url">https://chatbox01.pages.dev</div><div class="v110-share-actions"><button class="v110-about-btn" onclick="v138CopyShareLink(this)">Copy</button><button class="v110-about-btn" onclick="v138ShareChatBox()">Share</button></div><div class="v110-share-qr"><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAXIAAAFyAQAAAADAX2ykAAAChUlEQVR4nO2bQW6kMBBFXw1IWcIN+ijum0U5Um6Aj5Ib4CUS6M/CNnR6NEqi6TAQVS1aQL/Fl6yiyr+Mia9E/PUlHJx33nnnnXfe+b/xVqLFzFqIZkbsAVL977qjHucfzAdJ0giSJiNozs/tSiNJ0nv+u/U4/2A+lQw164HYNwIW0wAlp/fV4/xj+PbuXqQnWRiXFrrmz83T0fQ7/0U+9iVrCW/3i/8/9Dj/T3xdwk5AAgtaWoNGFvsGC69wm8VH0+/8p/hoZrn0kp5EGCH/wJLb5331OP8gPufvlqEiAfEyI5isJPZ+epz/Dt6uqQWSGfEymQaWuuFlMUgt5faY+p3/BG/Xrm5zw7i2zqkFusnfz+fkye7F0M1IY5NNDqARdDO5k4ZG2QIZjqbf+Q+irC9kEwuoi7x5WkOnEr6+J+Pz+uYXcsj520hDdiVnyjPJ8/ec/Lr/ncmt1U2tzbGYYKnc0fQ7/yk+mpmG9CQrA4Wpzo865Wf76nH+QXypvzcFV3MtuDdvaq+/J+Wpw78mN1kaOuXWmaCZOjP0+ntqXtJkdu1mCG9mZf+bWqpn6f7kqfkb6zn2oBdryUlMN2N28fn+SfnqP6cWwWIEgYWxLwkbBmRhWC3qo+l3/oMo9bcrm2ANuVferiA7Wd5fnZFH76O0UTTKndbqaXl/dWJ+Oz8JLGbPmqzMf1PLdtzuqPqd/4DfvOaXvpFe+kbV35ghDwn31OP8g/jVf4Zb/7m2ziW8/v4YPl4mIxfcce2+kp+P/SG8Pb+15ehktHpqI2guV4fX7/z7uD8/qdg3swFGeO0BlpbYj+5vnJNf/Wdg2waV0cIanfvPJ+XNv+923nnnnXfe+d353/PxtNLb5t2eAAAAAElFTkSuQmCC" alt="ChatBox QR code"><span>Scan to open ChatBox</span></div>';
     panel.appendChild(share);
     panel.appendChild(createSettingsRow('Owner', 'ChatBox is designed, built and owned by Abir Hossain. He builds simple, fast and private tools that help people stay close to the people they love.', ''));
     var rep = document.createElement('div');
@@ -19062,10 +19149,10 @@ function v110ApplyUpdate(){
     try{
       if('serviceWorker' in navigator){
         navigator.serviceWorker.getRegistration().then(function(reg){
-          if(reg && reg.waiting){ try{ reg.waiting.postMessage({type:'SKIP_WAITING'}); }catch(e){} setTimeout(function(){ /* v172 (s14 G-06): re-check at the end of the 800 ms window — a call or game that started inside the window must not be dropped by the reload. Same conditions as the guard above, re-queried fresh. */ var _m172 = document.getElementById('callModal'); var _p172 = document.getElementById('callMiniBar'); var _busy172 = (_m172 && !_m172.classList.contains('hidden')) || (_p172 && !_p172.classList.contains('hidden')) || (typeof callState!=='undefined' && callState && ['connected','calling','ringing','connecting'].indexOf(callState.status) >= 0); if(_busy172){ showToast('Finish your call first, then tap Update.'); return; } var _g172 = document.getElementById('v123GameModal'); if(_g172 && !_g172.classList.contains('hidden')){ showToast('Finish your game / video first, then tap Update.'); return; } location.reload(); }, 800); }
-          else location.reload();
+          if(reg && reg.waiting){ try{ reg.waiting.postMessage({type:'SKIP_WAITING'}); }catch(e){} setTimeout(function(){ /* v172 (s14 G-06): re-check at the end of the 800 ms window — a call or game that started inside the window must not be dropped by the reload. Same conditions as the guard above, re-queried fresh. */ var _m172 = document.getElementById('callModal'); var _p172 = document.getElementById('callMiniBar'); var _busy172 = (_m172 && !_m172.classList.contains('hidden')) || (_p172 && !_p172.classList.contains('hidden')) || (typeof callState!=='undefined' && callState && ['connected','calling','ringing','connecting'].indexOf(callState.status) >= 0); if(_busy172){ showToast('Finish your call first, then tap Update.'); return; } var _g172 = document.getElementById('v123GameModal'); if(_g172 && !_g172.classList.contains('hidden')){ showToast('Finish your game / video first, then tap Update.'); return; } document.body.classList.add('v173-reloading'); setTimeout(function(){ location.reload(); }, 180); }, 800); }
+          else { var _m173 = document.getElementById('callModal'); var _p173 = document.getElementById('callMiniBar'); var _busy173 = (_m173 && !_m173.classList.contains('hidden')) || (_p173 && !_p173.classList.contains('hidden')) || (typeof callState!=='undefined' && callState && ['connected','calling','ringing','connecting'].indexOf(callState.status) >= 0); if(_busy173){ showToast('Finish your call first, then tap Update.'); return; } var _g173 = document.getElementById('v123GameModal'); if(_g173 && !_g173.classList.contains('hidden')){ showToast('Finish your game / video first, then tap Update.'); return; } document.body.classList.add('v173-reloading'); setTimeout(function(){ location.reload(); }, 180); }
         }).catch(function(){ location.reload(); });
-      } else location.reload();
+      } else { var _m173b = document.getElementById('callModal'); var _p173b = document.getElementById('callMiniBar'); var _busy173b = (_m173b && !_m173b.classList.contains('hidden')) || (_p173b && !_p173b.classList.contains('hidden')) || (typeof callState!=='undefined' && callState && ['connected','calling','ringing','connecting'].indexOf(callState.status) >= 0); if(_busy173b){ showToast('Finish your call first, then tap Update.'); return; } var _g173b = document.getElementById('v123GameModal'); if(_g173b && !_g173b.classList.contains('hidden')){ showToast('Finish your game / video first, then tap Update.'); return; } document.body.classList.add('v173-reloading'); setTimeout(function(){ location.reload(); }, 180); }
     }catch(e){ location.reload(); }
   }catch(e){ showToast('Could not update right now. Please try again.'); }
 }
@@ -19087,7 +19174,7 @@ function v110SendReport(){
 }
 
 /* v138: Share ChatBox — copy/share the website link from the About section. */
-var V138_SHARE_URL = 'https://chatbox-41j.pages.dev';
+var V138_SHARE_URL = 'https://chatbox01.pages.dev';
 function v138CopyShareLink(btn){
   try{
     var done = function(){
@@ -39013,7 +39100,7 @@ if(typeof openGroupChat==='function'){
 }
 </script>
 
-<script>/* ChatBox v82 */window.__CHATBOX_VERSION__ = 'v172'; window.__CHATBOX_RELEASE_DATE__ = '20 November 2026, 13:36';</script>
+<script>/* ChatBox v82 */window.__CHATBOX_VERSION__ = 'v173'; window.__CHATBOX_RELEASE_DATE__ = '21 November 2026, 01:23';</script>
 <script>
 /* ================= ChatBox v162 — Community system (Phase 1) =================
    New code lives ONLY in this block. Old code is not moved or rewritten

@@ -5,26 +5,38 @@
 1. Zip the app files at the repo root — exactly these 11:
    `index.html`, `sw.js`, `manifest.json`, `favicon.svg`, `logo.png`,
    `icon-192.png`, `icon-512.png`, `icon-maskable-512.png`,
-   `chatbox-call-doodle-bg.jpg`, `_headers`, `README-v172.txt`
-   (do **not** include `README.md`, `DEPLOY_GUIDE.md`, `.env.example`,
-   `.gitignore`, `LICENSE`, `supabase-v172.sql`, or `assets/` — those are
-   repo-only).
-2. Cloudflare dashboard → Workers & Pages → your Pages project →
+   `chatbox-call-doodle-bg.jpg`, `_headers`, `README-v173.txt`
+   (do **not** include `README.md`, `DEPLOY_GUIDE.md`, `GITHUB_UPDATE.md`,
+   `.env.example`, `.gitignore`, `LICENSE`, `supabase-v172.sql`, or
+   `assets/` — those are repo-only).
+2. Cloudflare dashboard → Workers & Pages → the **chatbox01** Pages project →
    **Create deployment** → **Direct Upload** → upload the zip.
-3. Verify: open the site, Settings → About shows the new version.
+   (Live site: https://chatbox01.pages.dev — v173 runs on the new backend,
+   Supabase project "ChatBox", ref `dpohgpccqkbzazbbikwx`, Singapore.)
+3. Verify: open the site, Settings → About shows v173, and the share link
+   shows https://chatbox01.pages.dev. Also check the CSP header names the new
+   host: `curl -s -I https://chatbox01.pages.dev/ | grep -i content-security-policy`
+   must show `dpohgpccqkbzazbbikwx` (this pack fixes a v173 bug where `_headers`
+   still named the old Supabase host and browsers blocked login with
+   "Failed to fetch").
 
-## 2. Push to GitHub (first time)
+## 2. Push to GitHub
 
 ```bash
-git init
 git add .
-git commit -m "ChatBox v172"
-git branch -M main
-git remote add origin https://github.com/hossainabirdev/ChatBox.git
-git push -u origin main
+git commit -m "ChatBox v173"
+git push
 ```
 
-Later updates: `git add . && git commit -m "ChatBox v173" && git push`.
+First-time setup (if the repo is not cloned yet):
+
+```bash
+git clone https://github.com/hossainabirdev/ChatBox.git
+cd ChatBox
+```
+
+After pushing, update the repo About fields — the exact values are in
+`GITHUB_UPDATE.md` (description, website, topics, pin the repo).
 
 ## 3. Where the real secrets go (never in the repo)
 
@@ -44,10 +56,11 @@ committed.
 
 ## 4. Backend first-run checklist
 
-Live status (20 Nov 2026, project "chatbox"): the `§0` checks are done and
-§1-1a, §1-3a (adapted), §2 C-12 and §3 S-1 are already run and verified live.
-Do NOT run §3 E-06 or §3 F11 as written (both stopped, rework owed), and do
-NOT run §1-1b, §1-3c, the `view_once_views` table or the `muted_chats` table.
+**v173 needs no new SQL.** Live status (20 Nov 2026, project "chatbox"):
+the `§0` checks are done and §1-1a, §1-3a (adapted), §2 C-12 and §3 S-1 are
+already run and verified live. Do NOT run §3 E-06 or §3 F11 as written
+(both stopped, rework owed), and do NOT run §1-1b, §1-3c, the
+`view_once_views` table or the `muted_chats` table.
 
 1. Run the `§0` checks in `supabase-v172.sql` before any section.
 2. Confirm `group_messages.forwarded` exists (a missing column breaks group

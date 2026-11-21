@@ -1,4 +1,4 @@
-/* ChatBox v172 service worker — tab-closed push notifications + PWA.
+/* ChatBox v173 service worker — tab-closed push notifications + PWA.
    Shows a push notification even when no ChatBox tab is open,
    as long as Chrome runs in the background and push is enabled.
    Clicking the notification opens/focuses ChatBox on that chat.
@@ -18,7 +18,7 @@
      never cached.
    The cache name carries the version; activating a new worker deletes
    old caches, so an old shell can never linger. */
-const CACHE_NAME = 'chatbox-v172';
+const CACHE_NAME = 'chatbox-v173';
 const SHELL = [
   '/',
  '/index.html',
