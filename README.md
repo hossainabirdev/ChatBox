@@ -8,43 +8,8 @@ A real-time messaging PWA that brings together the best of WhatsApp, Messenger, 
 
 ## What's new in v174
 
-v174 is a one-fix + one-polish release on top of v173 — same app, same backend,
-no behaviour changes:
-
-- **Login-logo wave, restored** — the login page logo's ripple ring ("wave")
-  played once and stopped in v173; it waves forever again now, exactly like
-  the old v172 app. Cause: a v173 polish rule accidentally overrode the
-  infinite ripple with a single play. Fix: the override is deleted.
-- **Emoji panel entry** — the emoji panel used to appear instantly; it now
-  rises in with a gentle 180 ms fade, matching every other overlay
-  (menus, sheets, toasts).
-- No new SQL, no call or bot code touched. Full detail, with the reasoning
-  for every change, is in `README-v174.txt`.
-
-## What's new in v173
-
-v173 is a polish-only release — no new features, no behaviour changes, just a
-smoother, more premium feel:
-
-- **Animated load** — the splash screen fades and settles into the login screen
-  instead of swapping abruptly, with a gentle logo scale-in.
-- **Refresh that answers back** — the inbox refresh button pops when a refresh
-  finishes, and the chat list crossfades in on first paint.
-- **Realtime status, softly** — online dots scale in when a contact comes online,
-  the typing bubble fades out instead of vanishing, and message ticks pop gently.
-- **One motion language** — every transition in the app now shares a single
-  120/180/250 ms ease-out scale, so modals, tabs, toasts and rows all feel like
-  the same app. Nothing bouncy, nothing exaggerated.
-- **6 small bug fixes** — including the bulk-open animation storm (all ~50 bubbles
-  popping when a chat opened) and the send double-pop (one message animating twice).
-- **CSP login fix (21 Nov)** — the `_headers` security rule still named the old
-  Supabase host, so browsers blocked every request to the new backend and login
-  failed with "Failed to fetch". Fixed: the rule now names the new host
-  (`dpohgpccqkbzazbbikwx`). App code unchanged — still v173.
-
-Full detail for v173 was in the v173 pack's `README-v173.txt`; v174 detail
-is in `README-v174.txt`.
-No new SQL was needed for v173, and no call or bot code was touched.
+- Login-logo wave restored — the logo ripple waves forever again, like the old app.
+- Emoji panel now rises in with a gentle 180 ms fade.
 
 ## Why ChatBox?
 
@@ -161,7 +126,6 @@ Backend (one-time, in your own Supabase project):
 ├── supabase-v172.sql     # backend migration (partially run live 20 Nov 2026 — A/B/C/F done, D/E need rework; v174 needs no new SQL)
 ├── assets/banner.gif     # README banner
 ├── README.md
-├── README-v174.txt       # full v174 change log (WHY + WHAT CHANGED per item)
 ├── DEPLOY_GUIDE.md       # Cloudflare deploy + GitHub push steps
 ├── GITHUB_UPDATE.md      # About fields to paste on GitHub (description / website / topics)
 ├── .env.example          # secret names only — never real values
