@@ -6,7 +6,7 @@
    `index.html`, `sw.js`, `manifest.json`, `favicon.svg`, `logo.png`,
    `icon-192.png`, `icon-512.png`, `icon-maskable-512.png`,
    `chatbox-call-doodle-bg.jpg`, `_headers`, `README-v174.txt`
-   (do **not** include `README.md`, `DEPLOY_GUIDE.md`, `GITHUB_UPDATE.md`,
+   (do **not** include `README.md`, `DEPLOY_GUIDE.md`,
    `.env.example`, `.gitignore`, `LICENSE`, `supabase-v172.sql`, or
    `assets/` — those are repo-only).
 2. Cloudflare dashboard → Workers & Pages → the **chatbox01** Pages project →
@@ -35,8 +35,14 @@ git clone https://github.com/hossainabirdev/ChatBox.git
 cd ChatBox
 ```
 
-After pushing, update the repo About fields — the exact values are in
-`GITHUB_UPDATE.md` (description, website, topics, pin the repo).
+After pushing, update the repo About fields on GitHub (repo page → ⚙️ About).
+Description — pick one (option 1 recommended):
+1. "Not just a chat app — a whole universe in one HTML file: real-time chats, voice calls, stories, polls, Watch Together, and 13 games you can play right inside your conversations."
+2. "Chat, call, play — a real-time messaging PWA with 13 games hidden inside your chats, Watch Together, stories and voice calls, all packed into a single HTML file."
+3. "A chat app with a different vibe: message, call, play 13 games, watch videos together, share stories — everything in one HTML file, no build step, no framework."
+Website: https://chatbox01.pages.dev
+Topics: chat-app, messaging, realtime, supabase, pwa, webrtc, javascript, cloudflare-pages
+Pin the repo on your profile.
 
 ## 3. Where the real secrets go (never in the repo)
 

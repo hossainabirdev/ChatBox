@@ -86,6 +86,11 @@ quota. The Supabase **anon key in `index.html` is public by design** — it is
 scoped by RLS; real secrets (service_role, TURN, VAPID, Brevo, Realtime app
 secret) live only in the Supabase / Cloudflare dashboards, never in this repo.
 
+The single-file shape is deliberate: zero build step, one file to deploy. As
+the file grows (v174: ~40,000 lines), the plan is to split it into ES modules
+— app shell, chats, calls, games — behind a small build step that still ships
+one deployable file, so the deploy story does not change.
+
 ## Setup
 
 ```bash
@@ -99,15 +104,10 @@ npx serve .
 Backend (one-time, in your own Supabase project):
 
 1. Create a Supabase project; note the project URL and anon key.
-   The live app runs on project "ChatBox" (ref `dpohgpccqkbzazbbikwx`,
-   Singapore region).
 2. **v174 needs no new SQL.** If you are setting the backend up from scratch,
-   run the **§0 check-first queries** in `supabase-v172.sql` and record the
-   answers — then run one section at a time. Live status (20 Nov 2026,
-   project "chatbox"): §0 done; §1-1a, §1-3a (adapted), §2 C-12 and §3 S-1
-   already run and verified. §3 E-06 and §3 F11 are STOPPED and need a
-   rework — do not run them as written. §1-1b, §1-3c, the `view_once_views`
-   table and the `muted_chats` table must NOT be run.
+   run the check-first queries in `supabase-v172.sql` first, then run one
+   section at a time — the file's header notes which sections are done,
+   stopped, or must not be run.
 3. Set the server secrets listed in `.env.example` — in the dashboards, not
    in the repo (see `DEPLOY_GUIDE.md`).
 4. In `index.html`, replace the Supabase project URL / anon key with yours.
@@ -127,7 +127,6 @@ Backend (one-time, in your own Supabase project):
 ├── assets/banner.gif     # README banner
 ├── README.md
 ├── DEPLOY_GUIDE.md       # Cloudflare deploy + GitHub push steps
-├── GITHUB_UPDATE.md      # About fields to paste on GitHub (description / website / topics)
 ├── .env.example          # secret names only — never real values
 └── LICENSE               # MIT
 ```
