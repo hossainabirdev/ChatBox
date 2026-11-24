@@ -104,7 +104,7 @@ npx serve .
 Backend (one-time, in your own Supabase project):
 
 1. Create a Supabase project; note the project URL and anon key.
-2. **v174 needs no new SQL.** If you are setting the backend up from scratch,
+2. **version needs no new SQL.** If you are setting the backend up from scratch,
    run the check-first queries in `supabase-v172.sql` first, then run one
    section at a time — the file's header notes which sections are done,
    stopped, or must not be run.
